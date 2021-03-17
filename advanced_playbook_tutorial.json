@@ -7,7 +7,7 @@
             "clean": true,
             "code_block": "import requests",
             "description": "This is the May 12 Tech Session Playbook that shows use of filter, decision, custom lists, prompts and scheduled actions.",
-            "hash": "f39a748d3c9d9345674dad602a5a186cc7352416",
+            "hash": "86e3a71a647d7ed07b579e18c3a8143b447024be",
             "joint": {
                 "cells": [
                     {
@@ -957,7 +957,7 @@
                                 "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
                             }
                         },
-                        "block_code": "def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('decision_3() called')\n\n    # check for 'if' condition 1\n    matched = phantom.decision(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress\", \"not in\", \"custom_list:test_machines\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched:\n        set_severity_2(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function)\n        return\n\n    return",
+                        "block_code": "def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('decision_3() called')\n\n    # check for 'if' condition 1\n    matched = phantom.decision(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress\", \"not in\", \"custom_list:test_machines\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched:\n        set_severity_2(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function)\n        return\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": false,
@@ -996,7 +996,7 @@
                                     {
                                         "comparison": "not in",
                                         "data_type": "",
-                                        "param": "filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress",
+                                        "param": "filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress",
                                         "value": "custom_list:test_machines"
                                     }
                                 ],
@@ -1137,8 +1137,8 @@
                         "join_code": "# read-only block view not available",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 312,
-                        "line_start": 299,
+                        "line_end": 318,
+                        "line_start": 305,
                         "name": "",
                         "notes": "",
                         "number": 0,
@@ -1263,7 +1263,7 @@
                                 "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
                             }
                         },
-                        "block_code": "def filter_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('filter_3() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress\", \"not in\", \"custom_list:blocked_ips\"],\n        ],\n        name=\"filter_3:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        prompt_1(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    return",
+                        "block_code": "def filter_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('filter_3() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress\", \"not in\", \"custom_list:blocked_ips\"],\n        ],\n        name=\"filter_3:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        prompt_1(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": false,
@@ -1301,7 +1301,7 @@
                                     {
                                         "comparison": "not in",
                                         "data_type": "",
-                                        "param": "filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress",
+                                        "param": "filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress",
                                         "value": "custom_list:blocked_ips"
                                     }
                                 ],
@@ -1460,338 +1460,6 @@
                         },
                         "type": "link",
                         "z": 188
-                    },
-                    {
-                        "active": false,
-                        "angle": 0,
-                        "attrs": {
-                            ".background": {
-                                "fill": "#000000",
-                                "stroke": "#5C6773",
-                                "transform": "rotate(45 30 70)"
-                            },
-                            ".border": {
-                                "transform": "rotate(45 30 70)"
-                            },
-                            ".inPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "in",
-                                    "type": "in"
-                                }
-                            },
-                            ".number": {
-                                "text": 1
-                            },
-                            ".outPorts>.port-0": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                },
-                                "ref-x": 83,
-                                "ref-y": 40
-                            },
-                            ".outPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                }
-                            },
-                            "g.delete": {
-                                "display": "none"
-                            },
-                            "g.error": {
-                                "opacity": 0
-                            },
-                            "g.notes": {
-                                "display": "block",
-                                "opacity": 1
-                            },
-                            "g.notes image": {
-                                "opacity": 1,
-                                "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
-                            }
-                        },
-                        "block_code": "def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('filter_1() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"file_reputation_1:action_result.summary.positives\", \">\", 10],\n        ],\n        name=\"filter_1:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        filter_2(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    return",
-                        "callback_code": "",
-                        "callback_start": 1,
-                        "callsback": false,
-                        "connected_to_start": true,
-                        "connection_name": "file reputation",
-                        "connection_type": "action",
-                        "custom_callback": "",
-                        "custom_code": "",
-                        "custom_join": "",
-                        "custom_name": "",
-                        "description": "",
-                        "has_custom": false,
-                        "has_custom_block": false,
-                        "has_custom_callback": false,
-                        "has_custom_join": false,
-                        "id": "7fb56735-cc89-4272-afb1-d89874c587c2",
-                        "inPorts": [
-                            "in"
-                        ],
-                        "join_code": "",
-                        "join_optional": [],
-                        "join_start": 1,
-                        "line_end": 85,
-                        "line_start": 67,
-                        "name": "filter",
-                        "notes": "More than 10 vendors detect the file as Malicious?",
-                        "number": 1,
-                        "order": 5,
-                        "outPorts": [
-                            "out-1"
-                        ],
-                        "outputs": [
-                            {
-                                "conditions": [
-                                    {
-                                        "comparison": ">",
-                                        "data_type": "",
-                                        "param": "file_reputation_1:action_result.summary.positives",
-                                        "value": "10"
-                                    }
-                                ],
-                                "display": "If",
-                                "logic": "and",
-                                "type": "if"
-                            }
-                        ],
-                        "ports": {
-                            "groups": {
-                                "in": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "left"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "left"
-                                    }
-                                },
-                                "out": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "right"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "right"
-                                    }
-                                }
-                            }
-                        },
-                        "position": {
-                            "x": 540,
-                            "y": 600
-                        },
-                        "previous_function": "",
-                        "previous_name": "filter_1",
-                        "show_number": true,
-                        "size": {
-                            "height": 82,
-                            "width": 82
-                        },
-                        "state": "filter",
-                        "status": "",
-                        "type": "coa.Filter",
-                        "warn": false,
-                        "z": 195
-                    },
-                    {
-                        "active": false,
-                        "angle": 0,
-                        "attrs": {
-                            ".background": {
-                                "fill": "#000000",
-                                "stroke": "#5C6773",
-                                "transform": "rotate(45 30 70)"
-                            },
-                            ".border": {
-                                "transform": "rotate(45 30 70)"
-                            },
-                            ".inPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "in",
-                                    "type": "in"
-                                }
-                            },
-                            ".number": {
-                                "text": 2
-                            },
-                            ".outPorts>.port-0": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                },
-                                "ref-x": 83,
-                                "ref-y": 40
-                            },
-                            ".outPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                }
-                            },
-                            "g.delete": {
-                                "display": "none"
-                            },
-                            "g.error": {
-                                "opacity": 0
-                            },
-                            "g.notes": {
-                                "display": "block",
-                                "opacity": 1
-                            },
-                            "g.notes image": {
-                                "opacity": 1,
-                                "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
-                            }
-                        },
-                        "block_code": "def filter_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('filter_2() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"filtered-data:filter_1:condition_1:file_reputation_1:action_result.parameter.hash\", \"==\", \"artifact:*.cef.fileHash\"],\n        ],\n        name=\"filter_2:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        decision_3(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n        terminate_process_1(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n        filter_3(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    return",
-                        "callback_code": "",
-                        "callback_start": 1,
-                        "callsback": false,
-                        "connected_to_start": true,
-                        "connection_name": "file reputation",
-                        "connection_type": "action",
-                        "custom_callback": "",
-                        "custom_code": "",
-                        "custom_join": "",
-                        "custom_name": "",
-                        "description": "",
-                        "has_custom": false,
-                        "has_custom_block": false,
-                        "has_custom_callback": false,
-                        "has_custom_join": false,
-                        "id": "83fbb871-d0d4-488a-ad95-974f45077c38",
-                        "inPorts": [
-                            "in"
-                        ],
-                        "join_code": "",
-                        "join_optional": [],
-                        "join_start": 1,
-                        "line_end": 105,
-                        "line_start": 85,
-                        "name": "filter",
-                        "notes": "Identify the artifact whose hash is malicious to get other related properties",
-                        "number": 2,
-                        "order": 6,
-                        "outPorts": [
-                            "out-1"
-                        ],
-                        "outputs": [
-                            {
-                                "conditions": [
-                                    {
-                                        "comparison": "==",
-                                        "data_type": "",
-                                        "param": "filtered-data:filter_1:condition_1:file_reputation_1:action_result.parameter.hash",
-                                        "value": "artifact:*.cef.fileHash"
-                                    }
-                                ],
-                                "display": "If",
-                                "logic": "and",
-                                "type": "if"
-                            }
-                        ],
-                        "ports": {
-                            "groups": {
-                                "in": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "left"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "left"
-                                    }
-                                },
-                                "out": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "right"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "right"
-                                    }
-                                }
-                            }
-                        },
-                        "position": {
-                            "x": 680,
-                            "y": 600
-                        },
-                        "previous_function": "",
-                        "previous_name": "filter_2",
-                        "show_number": true,
-                        "size": {
-                            "height": 82,
-                            "width": 82
-                        },
-                        "state": "filter",
-                        "status": "",
-                        "type": "coa.Filter",
-                        "warn": false,
-                        "z": 196
                     },
                     {
                         "action": "file reputation",
@@ -2129,7 +1797,7 @@
                                 "fill": "#FFFFFF"
                             }
                         },
-                        "block_code": "def file_reputation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('file_reputation_1() called')\n\n    # collect data for 'file_reputation_1' call\n    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.fileHash', 'artifact:*.id'])\n\n    parameters = []\n    \n    # build parameters list for 'file_reputation_1' call\n    for container_item in container_data:\n        if container_item[0]:\n            parameters.append({\n                'hash': container_item[0],\n                # context (artifact id) is added to associate results with the artifact\n                'context': {'artifact_id': container_item[1]},\n            })\n\n    phantom.act(action=\"file reputation\", parameters=parameters, assets=['reversinglabs'], callback=filter_1, name=\"file_reputation_1\")\n\n    return",
+                        "block_code": "def file_reputation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('file_reputation_1() called')\n\n    # collect data for 'file_reputation_1' call\n    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.fileHash', 'artifact:*.id'])\n\n    parameters = []\n    \n    # build parameters list for 'file_reputation_1' call\n    for container_item in container_data:\n        if container_item[0]:\n            parameters.append({\n                'hash': container_item[0],\n                # context (artifact id) is added to associate results with the artifact\n                'context': {'artifact_id': container_item[1]},\n            })\n\n    phantom.act(action=\"file reputation\", parameters=parameters, assets=['reversinglabs'], callback=Positive_Hits, name=\"file_reputation_1\")\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": true,
@@ -2154,8 +1822,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 126,
-                        "line_start": 105,
+                        "line_end": 132,
+                        "line_start": 111,
                         "message": "Configuring now",
                         "name": "file reputation",
                         "notes": "Check reversing labs if file is malicious",
@@ -2312,8 +1980,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 144,
-                        "line_start": 126,
+                        "line_end": 150,
+                        "line_start": 132,
                         "name": "decision",
                         "notes": "Analyst wants a temp block so lets add it to block list first and proceed with block",
                         "number": 4,
@@ -2452,7 +2120,7 @@
                                 "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
                             }
                         },
-                        "block_code": "def prompt_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('prompt_1() called')\n    \n    # set user and message variables for phantom.prompt call\n    user = \"sourabh@phantom.us\"\n    message = \"\"\"shall we block the attacker IP  \n{0} that is being connected to malware with hash \n{1} that has more \n{2} detections? NOTE: If you chose to block, it will be unblocked after 60 mins.\"\"\"\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"filtered-data:filter_3:condition_1:artifact:*.cef.sourceAddress\",\n        \"filtered-data:filter_3:condition_1:artifact:*.cef.fileHash\",\n        \"filtered-data:filter_2:condition_1:file_reputation_1:action_result.summary.positives\",\n    ]\n\n    #responses:\n    response_types = [\n        {\n            \"prompt\": \"\",\n            \"options\": {\n                \"type\": \"list\",\n                \"choices\": [\n                    \"Yes\",\n                    \"No\",\n                ]\n            },\n        },\n    ]\n\n    phantom.prompt2(container=container, user=user, message=message, respond_in_mins=30, name=\"prompt_1\", parameters=parameters, response_types=response_types, callback=decision_4)\n\n    return",
+                        "block_code": "def prompt_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('prompt_1() called')\n    \n    # set user and message variables for phantom.prompt call\n    user = \"sourabh@phantom.us\"\n    message = \"\"\"shall we block the attacker IP  \n{0} that is being connected to malware with hash \n{1} that has more \n{2} detections? NOTE: If you chose to block, it will be unblocked after 60 mins.\"\"\"\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"filtered-data:filter_3:condition_1:artifact:*.cef.sourceAddress\",\n        \"filtered-data:filter_3:condition_1:artifact:*.cef.fileHash\",\n        \"filtered-data:fileHash:condition_1:file_reputation_1:action_result.summary.positives\",\n    ]\n\n    #responses:\n    response_types = [\n        {\n            \"prompt\": \"\",\n            \"options\": {\n                \"type\": \"list\",\n                \"choices\": [\n                    \"Yes\",\n                    \"No\",\n                ]\n            },\n        },\n    ]\n\n    phantom.prompt2(container=container, user=user, message=message, respond_in_mins=30, name=\"prompt_1\", parameters=parameters, response_types=response_types, callback=decision_4)\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": true,
@@ -2475,8 +2143,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 179,
-                        "line_start": 144,
+                        "line_end": 185,
+                        "line_start": 150,
                         "message": "shall we block the attacker IP  \n{0} that is being connected to malware with hash \n{1} that has more \n{2} detections? NOTE: If you chose to block, it will be unblocked after 60 mins.",
                         "name": "prompt",
                         "notes": "Ask the IR analyst to see if this should be temporarily blocked",
@@ -2499,7 +2167,7 @@
                             {
                                 "position": 2,
                                 "type": "",
-                                "value": "filtered-data:filter_2:condition_1:file_reputation_1:action_result.summary.positives"
+                                "value": "filtered-data:fileHash:condition_1:file_reputation_1:action_result.summary.positives"
                             }
                         ],
                         "ports": {
@@ -2705,8 +2373,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 195,
-                        "line_start": 179,
+                        "line_end": 201,
+                        "line_start": 185,
                         "message": "Configuring now",
                         "name": "send message",
                         "notes": "Add the IP address to [blocked_ips] custom list",
@@ -2967,8 +2635,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 220,
-                        "line_start": 195,
+                        "line_end": 226,
+                        "line_start": 201,
                         "message": "Configuring now",
                         "name": "block ip",
                         "notes": "lets block the IP on the FWs",
@@ -3232,8 +2900,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 247,
-                        "line_start": 220,
+                        "line_end": 253,
+                        "line_start": 226,
                         "message": "Configuring now",
                         "name": "unblock ip",
                         "notes": "Scheduling the unblock after 60 minutes",
@@ -3323,8 +2991,8 @@
                         "active": false,
                         "active_keys": {},
                         "active_values": {
-                            "ip_hostname": "filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress",
-                            "name": "filtered-data:filter_2:condition_1:artifact:*.cef.fileName"
+                            "ip_hostname": "filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress",
+                            "name": "filtered-data:fileHash:condition_1:artifact:*.cef.fileName"
                         },
                         "angle": 0,
                         "app": "",
@@ -3338,8 +3006,8 @@
                                 "appid": "",
                                 "config_type": "asset",
                                 "fields": {
-                                    "ip_hostname": "filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress",
-                                    "name": "filtered-data:filter_2:condition_1:artifact:*.cef.fileName"
+                                    "ip_hostname": "filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress",
+                                    "name": "filtered-data:fileHash:condition_1:artifact:*.cef.fileName"
                                 },
                                 "has_app": true,
                                 "id": "-",
@@ -3503,8 +3171,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 271,
-                        "line_start": 247,
+                        "line_end": 277,
+                        "line_start": 253,
                         "message": "Configuring now",
                         "name": "terminate process",
                         "notes": "terminating the process by file name for the file whose hash has been confirmed to be malicious",
@@ -3766,8 +3434,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 299,
-                        "line_start": 271,
+                        "line_end": 305,
+                        "line_start": 277,
                         "message": "Configuring now",
                         "name": "unblock ip",
                         "notes": "If unblock was done, remove the IP address from blocklist",
@@ -3849,6 +3517,338 @@
                         "type": "coa.Action",
                         "warn": false,
                         "z": 207
+                    },
+                    {
+                        "active": false,
+                        "angle": 0,
+                        "attrs": {
+                            ".background": {
+                                "fill": "#000000",
+                                "stroke": "#5C6773",
+                                "transform": "rotate(45 30 70)"
+                            },
+                            ".border": {
+                                "transform": "rotate(45 30 70)"
+                            },
+                            ".inPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "in",
+                                    "type": "in"
+                                }
+                            },
+                            ".number": {
+                                "text": 2
+                            },
+                            ".outPorts>.port-0": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                },
+                                "ref-x": 83,
+                                "ref-y": 40
+                            },
+                            ".outPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                }
+                            },
+                            "g.delete": {
+                                "display": "none"
+                            },
+                            "g.error": {
+                                "opacity": 0
+                            },
+                            "g.notes": {
+                                "display": "block",
+                                "opacity": 1
+                            },
+                            "g.notes image": {
+                                "opacity": 1,
+                                "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
+                            }
+                        },
+                        "block_code": "def fileHash(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('fileHash() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"filtered-data:Positive_Hits:condition_1:file_reputation_1:action_result.parameter.hash\", \"==\", \"artifact:*.cef.fileHash\"],\n        ],\n        name=\"fileHash:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        decision_3(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n        terminate_process_1(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n        filter_3(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    return",
+                        "callback_code": "",
+                        "callback_start": 1,
+                        "callsback": false,
+                        "connected_to_start": true,
+                        "connection_name": "file reputation",
+                        "connection_type": "action",
+                        "custom_callback": "",
+                        "custom_code": "",
+                        "custom_join": "",
+                        "custom_name": "fileHash",
+                        "description": "Filtering for fileHash",
+                        "has_custom": false,
+                        "has_custom_block": false,
+                        "has_custom_callback": false,
+                        "has_custom_join": false,
+                        "id": "83fbb871-d0d4-488a-ad95-974f45077c38",
+                        "inPorts": [
+                            "in"
+                        ],
+                        "join_code": "",
+                        "join_optional": [],
+                        "join_start": 1,
+                        "line_end": 111,
+                        "line_start": 91,
+                        "name": "filter",
+                        "notes": "Identify the artifact whose hash is malicious to get other related properties",
+                        "number": 2,
+                        "order": 6,
+                        "outPorts": [
+                            "out-1"
+                        ],
+                        "outputs": [
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "==",
+                                        "data_type": "",
+                                        "param": "filtered-data:Positive_Hits:condition_1:file_reputation_1:action_result.parameter.hash",
+                                        "value": "artifact:*.cef.fileHash"
+                                    }
+                                ],
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            }
+                        ],
+                        "ports": {
+                            "groups": {
+                                "in": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "left"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "left"
+                                    }
+                                },
+                                "out": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "right"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "right"
+                                    }
+                                }
+                            }
+                        },
+                        "position": {
+                            "x": 680,
+                            "y": 600
+                        },
+                        "previous_function": "",
+                        "previous_name": "fileHash",
+                        "show_number": true,
+                        "size": {
+                            "height": 82,
+                            "width": 82
+                        },
+                        "state": "filter",
+                        "status": "",
+                        "type": "coa.Filter",
+                        "warn": false,
+                        "z": 208
+                    },
+                    {
+                        "active": false,
+                        "angle": 0,
+                        "attrs": {
+                            ".background": {
+                                "fill": "#000000",
+                                "stroke": "#5C6773",
+                                "transform": "rotate(45 30 70)"
+                            },
+                            ".border": {
+                                "transform": "rotate(45 30 70)"
+                            },
+                            ".inPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "in",
+                                    "type": "in"
+                                }
+                            },
+                            ".number": {
+                                "text": 1
+                            },
+                            ".outPorts>.port-0": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                },
+                                "ref-x": 83,
+                                "ref-y": 40
+                            },
+                            ".outPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                }
+                            },
+                            "g.delete": {
+                                "display": "none"
+                            },
+                            "g.error": {
+                                "opacity": 0
+                            },
+                            "g.notes": {
+                                "display": "block",
+                                "opacity": 1
+                            },
+                            "g.notes image": {
+                                "opacity": 1,
+                                "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
+                            }
+                        },
+                        "block_code": "def Positive_Hits(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):\n    phantom.debug('Positive_Hits() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"file_reputation_1:action_result.summary.positives\", \">\", 10],\n        ],\n        name=\"Positive_Hits:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        fileHash(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    return",
+                        "callback_code": "",
+                        "callback_start": 1,
+                        "callsback": false,
+                        "connected_to_start": true,
+                        "connection_name": "file reputation",
+                        "connection_type": "action",
+                        "custom_callback": "",
+                        "custom_code": "",
+                        "custom_join": "",
+                        "custom_name": "Positive Hits",
+                        "description": "Filtering for >10 positive hits.",
+                        "has_custom": false,
+                        "has_custom_block": false,
+                        "has_custom_callback": false,
+                        "has_custom_join": false,
+                        "id": "7fb56735-cc89-4272-afb1-d89874c587c2",
+                        "inPorts": [
+                            "in"
+                        ],
+                        "join_code": "",
+                        "join_optional": [],
+                        "join_start": 1,
+                        "line_end": 88,
+                        "line_start": 70,
+                        "name": "filter",
+                        "notes": "More than 10 vendors detect the file as Malicious?",
+                        "number": 1,
+                        "order": 5,
+                        "outPorts": [
+                            "out-1"
+                        ],
+                        "outputs": [
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": ">",
+                                        "data_type": "",
+                                        "param": "file_reputation_1:action_result.summary.positives",
+                                        "value": "10"
+                                    }
+                                ],
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            }
+                        ],
+                        "ports": {
+                            "groups": {
+                                "in": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "left"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "left"
+                                    }
+                                },
+                                "out": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "right"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "right"
+                                    }
+                                }
+                            }
+                        },
+                        "position": {
+                            "x": 540,
+                            "y": 600
+                        },
+                        "previous_function": "",
+                        "previous_name": "Positive_Hits",
+                        "show_number": true,
+                        "size": {
+                            "height": 82,
+                            "width": 82
+                        },
+                        "state": "filter",
+                        "status": "",
+                        "type": "coa.Filter",
+                        "warn": false,
+                        "z": 209
                     }
                 ]
             },
@@ -3858,7 +3858,7 @@
         "schema": 4,
         "version": "4.10.2.47587"
     },
-    "create_time": "2021-03-17T21:35:46.442737+00:00",
+    "create_time": "2021-03-17T21:40:37.523961+00:00",
     "draft_mode": false,
     "labels": [
         "events"

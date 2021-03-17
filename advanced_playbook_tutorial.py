@@ -36,7 +36,7 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
         container=container,
         action_results=results,
         conditions=[
-            ["filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress", "not in", "custom_list:test_machines"],
+            ["filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress", "not in", "custom_list:test_machines"],
         ])
 
     # call connected blocks if condition 1 matched
@@ -54,7 +54,7 @@ def filter_3(action=None, success=None, container=None, results=None, handle=Non
         container=container,
         action_results=results,
         conditions=[
-            ["filtered-data:filter_2:condition_1:artifact:*.cef.destinationAddress", "not in", "custom_list:blocked_ips"],
+            ["filtered-data:fileHash:condition_1:artifact:*.cef.destinationAddress", "not in", "custom_list:blocked_ips"],
         ],
         name="filter_3:condition_1")
 
@@ -64,8 +64,11 @@ def filter_3(action=None, success=None, container=None, results=None, handle=Non
 
     return
 
-def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):
-    phantom.debug('filter_1() called')
+"""
+Filtering for >10 positive hits.
+"""
+def Positive_Hits(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):
+    phantom.debug('Positive_Hits() called')
 
     # collect filtered artifact ids for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
@@ -74,25 +77,28 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
         conditions=[
             ["file_reputation_1:action_result.summary.positives", ">", 10],
         ],
-        name="filter_1:condition_1")
+        name="Positive_Hits:condition_1")
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        filter_2(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        fileHash(action=action, success=success, container=container, results=results, handle=handle, custom_function=custom_function, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     return
 
-def filter_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):
-    phantom.debug('filter_2() called')
+"""
+Filtering for fileHash
+"""
+def fileHash(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, **kwargs):
+    phantom.debug('fileHash() called')
 
     # collect filtered artifact ids for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         action_results=results,
         conditions=[
-            ["filtered-data:filter_1:condition_1:file_reputation_1:action_result.parameter.hash", "==", "artifact:*.cef.fileHash"],
+            ["filtered-data:Positive_Hits:condition_1:file_reputation_1:action_result.parameter.hash", "==", "artifact:*.cef.fileHash"],
         ],
-        name="filter_2:condition_1")
+        name="fileHash:condition_1")
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
@@ -119,7 +125,7 @@ def file_reputation_1(action=None, success=None, container=None, results=None, h
                 'context': {'artifact_id': container_item[1]},
             })
 
-    phantom.act(action="file reputation", parameters=parameters, assets=['reversinglabs'], callback=filter_1, name="file_reputation_1")
+    phantom.act(action="file reputation", parameters=parameters, assets=['reversinglabs'], callback=Positive_Hits, name="file_reputation_1")
 
     return
 
@@ -155,7 +161,7 @@ def prompt_1(action=None, success=None, container=None, results=None, handle=Non
     parameters = [
         "filtered-data:filter_3:condition_1:artifact:*.cef.sourceAddress",
         "filtered-data:filter_3:condition_1:artifact:*.cef.fileHash",
-        "filtered-data:filter_2:condition_1:file_reputation_1:action_result.summary.positives",
+        "filtered-data:fileHash:condition_1:file_reputation_1:action_result.summary.positives",
     ]
 
     #responses:
